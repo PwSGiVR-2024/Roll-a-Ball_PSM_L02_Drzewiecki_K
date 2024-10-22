@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
+using TMPro;
 
 public class movementController : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class movementController : MonoBehaviour
     public Rigidbody rb;
     public int score;
     public bool a = true;
+    public TMP_Text text;
+    public TMP_Text text2;
 
     // Start is called before the first frame update
     void Start()
@@ -48,4 +52,20 @@ public class movementController : MonoBehaviour
         a = true;
     }
 
+    public void scoreUpdate()
+    {
+        score++;
+        Debug.Log("Zdobyles punkciora!");
+        Debug.Log("Twoja liczba puntkow - " + score);
+        text.text = "Score: " + score;
+    }
+
+    public void winPrompt()
+    {
+        if (score >= 5)
+        {
+            Debug.Log("WYGRALES!");
+            text2.text = "WYGRALES!";
+        }
+    }
 }

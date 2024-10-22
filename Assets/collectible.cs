@@ -17,10 +17,8 @@ public class collectible : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        other.gameObject.GetComponent<movementController>().score++;
-        Debug.Log("Zdobyles punkciora!");
-        Debug.Log("Twoja liczba puntkow - " + other.gameObject.GetComponent<movementController>().score);
-        
+        other.gameObject.GetComponent<movementController>().scoreUpdate();
+        other.gameObject.GetComponent<movementController>().winPrompt();
         gameObject.SetActive(false);
     }
 }
