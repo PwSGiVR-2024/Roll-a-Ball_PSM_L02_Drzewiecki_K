@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
+using System.Runtime.ConstrainedExecution;
 
 public class movementController : MonoBehaviour
 {
@@ -10,8 +11,10 @@ public class movementController : MonoBehaviour
     public Rigidbody rb;
     public int score;
     public bool a = true;
+    public bool current = false;
     public TMP_Text text;
     public TMP_Text text2;
+    public GameObject Button;
 
     // Start is called before the first frame update
     void Start()
@@ -60,12 +63,24 @@ public class movementController : MonoBehaviour
         text.text = "Score: " + score;
     }
 
+    /*public void showNext(bool isActive)
+    {
+        PanelNext.SetActive(isActive);
+        current = isActive;
+    }
+    public void disappear()
+    {
+        current = false;
+        PanelNext.SetActive(current);
+    }*/
+
     public void winPrompt()
     {
         if (score >= 5)
         {
             Debug.Log("WYGRALES!");
             text2.text = "WYGRALES!";
+            Button.SetActive(true);
         }
     }
 }
