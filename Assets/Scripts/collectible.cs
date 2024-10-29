@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class collectible : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public AudioSource MyAudioSource;
+
     void Start()
     {
-        
+        MyAudioSource = GetComponent<AudioSource>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         transform.Rotate(Time.deltaTime * 50, Time.deltaTime * 50, Time.deltaTime * 50, Space.Self);
@@ -19,6 +18,13 @@ public class collectible : MonoBehaviour
     {
         other.gameObject.GetComponent<movementController>().scoreUpdate();
         other.gameObject.GetComponent<movementController>().winPrompt();
+        MyAudioSource.Play();
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
+        Invoke("DeactivateObject", MyAudioSource.clip.length);
+    }
+    void DeactivateObject()
+    {
         gameObject.SetActive(false);
     }
 }

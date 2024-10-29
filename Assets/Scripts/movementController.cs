@@ -10,19 +10,18 @@ public class movementController : MonoBehaviour
     public float thrust = 0.01f;
     public Rigidbody rb;
     public int score;
+    public static int lv = 0;
     public bool a = true;
     public bool current = false;
     public TMP_Text text;
     public TMP_Text text2;
+    public TMP_Text text3;
     public GameObject Button;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.W))
@@ -62,25 +61,26 @@ public class movementController : MonoBehaviour
         Debug.Log("Twoja liczba puntkow - " + score);
         text.text = "Score: " + score;
     }
-
-    /*public void showNext(bool isActive)
-    {
-        PanelNext.SetActive(isActive);
-        current = isActive;
-    }
-    public void disappear()
-    {
-        current = false;
-        PanelNext.SetActive(current);
-    }*/
-
     public void winPrompt()
     {
-        if (score >= 5)
+        if (score >= 8)
         {
-            Debug.Log("WYGRALES!");
-            text2.text = "WYGRALES!";
-            Button.SetActive(true);
+            if (lv == 0)
+            {
+                Debug.Log("WYGRALES POZIOM 1!");
+                text2.text = "WYGRALES POZIOM 1!";
+                Button.SetActive(true);
+                score = 0;
+                lv++;
+            }
+            else if (lv == 1)
+            {
+                Debug.Log("KONIEC GRY!");
+                text2.text = "KONIEC GRY!";
+                Button.SetActive(true);
+                score = 0;
+                text3.text = "Zakoncz gre";
+            }
         }
     }
 }
