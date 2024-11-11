@@ -3,15 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class menu : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        
-    }
-
     public GameObject OptionsPanel;
     public bool cur;
     public void startGame()
@@ -30,6 +21,6 @@ public class menu : MonoBehaviour
     }
     public void exitGame()
     {
-
+        Application.Quit(0);
     }
 }

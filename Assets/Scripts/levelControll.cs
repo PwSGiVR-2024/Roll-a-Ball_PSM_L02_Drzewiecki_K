@@ -4,14 +4,6 @@ using UnityEngine.SceneManagement;
 public class levelControll : MonoBehaviour
 {
     public GameObject Button;
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        
-    }
 
     public void nextLevel()
     {

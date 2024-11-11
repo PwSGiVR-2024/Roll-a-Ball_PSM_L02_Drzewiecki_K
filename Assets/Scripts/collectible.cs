@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class collectible : MonoBehaviour
 {
     public AudioSource MyAudioSource;
+    public static event EventHandler e_CoinCollection;
 
     void Start()
     {
@@ -16,12 +19,12 @@ public class collectible : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        other.gameObject.GetComponent<movementController>().scoreUpdate();
-        other.gameObject.GetComponent<movementController>().winPrompt();
         MyAudioSource.Play();
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
         Invoke("DeactivateObject", MyAudioSource.clip.length);
+        e_CoinCollection?.Invoke(this, EventArgs.Empty);
+
     }
     void DeactivateObject()
     {
