@@ -6,6 +6,8 @@ TagManager:
   tags:
   - teleport
   - ResetPlane
+  - collectible
+  - manager
   layers:
   - Default
   - TransparentFX

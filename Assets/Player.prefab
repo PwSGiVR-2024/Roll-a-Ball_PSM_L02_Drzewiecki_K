@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1762935735676482474}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,8 +150,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrust: 0.25
-  rb: {fileID: 0}
+  rb: {fileID: 3123131739792433773}
   score: 0
   a: 1
+  current: 0
   text: {fileID: 0}
   text2: {fileID: 0}
+  text3: {fileID: 0}
+  text4: {fileID: 0}
+  Button: {fileID: 0}
+  collisionImage: {fileID: 0}
+  collisionAudio: {fileID: 0}
+  levelCompleteAudio: {fileID: 0}

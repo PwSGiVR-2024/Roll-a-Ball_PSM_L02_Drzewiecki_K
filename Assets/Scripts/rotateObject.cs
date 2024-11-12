@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotateObject : MonoBehaviour
 {
-    public float rotationSpeed = 200.0f;
+    private float rotationSpeed = 300.0f;
 
     void Update()
     {

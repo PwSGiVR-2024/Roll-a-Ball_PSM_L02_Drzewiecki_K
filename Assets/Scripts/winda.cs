@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class trampolina : MonoBehaviour
+public class winda : MonoBehaviour
 {
-    private float speed = 1.5f;
+    private float speed = 2.5f;
     private float range = 5.0f;
     private int direction = 1;
 

@@ -7,20 +7,23 @@ using System.Runtime.ConstrainedExecution;
 using System;
 
 using static collectible;
+using static managerScript;
 
 public class movementController : MonoBehaviour
 {
-    public float thrust = 0.01f;
-    public Rigidbody rb;
-    public int score;
     public bool a = true;
     public bool current = false;
+    private float thrust = 0.2f;
+    public static int lv = 0;
+    public int score;
+    public int maxScore;
+    public Rigidbody rb;
     public TMP_Text text;
     public TMP_Text text2;
     public TMP_Text text3;
     public TMP_Text text4;
+    public GameObject manager;
     public GameObject Button;
-    public static int lv = 1;
     public GameObject collisionImage;
     public AudioSource collisionAudio;
     public AudioSource levelCompleteAudio;
@@ -32,6 +35,7 @@ public class movementController : MonoBehaviour
         startPosition = transform.position;
         e_CoinCollection += scoreUpdate;
         e_CoinCollection += winPrompt;
+        //maxScore = managerScript.maxScore;
 
         if (collisionImage != null)
         {
@@ -44,6 +48,10 @@ public class movementController : MonoBehaviour
         }
     }
     void FixedUpdate()
+    {
+        udpatePosition();
+    }
+    private void udpatePosition()
     {
         if (Input.GetKey(KeyCode.W))
         {
@@ -63,14 +71,14 @@ public class movementController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Space))
         {
-           if(a == true)
-           {
-                rb.AddForce(0, 5, 0, ForceMode.Impulse);
-           }
-           a = false;
+            if (a == true)
+            {
+                rb.AddForce(0, 4, 0, ForceMode.Impulse);
+            }
+            a = false;
         }
     }
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         a = true;
 
@@ -84,13 +92,11 @@ public class movementController : MonoBehaviour
             StartCoroutine(ShowCollisionImageAndReset());
         }
     }
-
     IEnumerator ShowCollisionImageAndReset()
     {
         if (collisionImage != null)
         {
             collisionImage.gameObject.SetActive(true);
-            Debug.Log("Wyświetlanie obrazu kolizji.");
         }
 
         yield return new WaitForSeconds(1.5f);
@@ -98,15 +104,12 @@ public class movementController : MonoBehaviour
         if (collisionImage != null)
         {
             collisionImage.gameObject.SetActive(false);
-            Debug.Log("Ukrywanie obrazu kolizji.");
         }
 
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        Debug.Log("Zresetowanie prędkości gracza.");
 
         transform.position = startPosition;
-        Debug.Log("Przywracanie gracza na pozycję startową: " + startPosition);
     }
 
     public void scoreUpdate(object o, EventArgs e)
@@ -114,10 +117,8 @@ public class movementController : MonoBehaviour
         if (text != null)
         {
             score++;
-            Debug.Log("Zdobyles punkciora!");
-            Debug.Log("Twoja liczba puntkow - " + score);
             text.text = "Score: " + score;
-            text4.text = "Aktualny poziom: " + lv;
+            text4.text = "Aktualny poziom: " + lv+1;
         }
     }
 
@@ -125,7 +126,7 @@ public class movementController : MonoBehaviour
     {
         if (score >= 8)
         {
-            if (lv == 1)
+            if (lv == 0)
             {
                 Debug.Log("WYGRALES POZIOM 1!");
                 if (text2 != null) text2.text = "WYGRALES POZIOM 1!";
@@ -133,12 +134,11 @@ public class movementController : MonoBehaviour
                 if (levelCompleteAudio != null)
                 {
                     levelCompleteAudio.Play();
-                    Debug.Log("Odtwarzanie dźwięku ukończenia poziomu.");
                 }
                 score = 0;
                 lv++;
             }
-            else if (lv == 2)
+            else if (lv == 1)
             {
                 Debug.Log("KONIEC GRY!");
                 if (text2 != null) text2.text = "KONIEC GRY!";
@@ -146,12 +146,11 @@ public class movementController : MonoBehaviour
                 if (levelCompleteAudio != null)
                 {
                     levelCompleteAudio.Play();
-                    Debug.Log("Odtwarzanie dźwięku ukończenia poziomu.");
                 }
                 score = 0;
                 if (text3 != null) text3.text = "Zakoncz gre";
+                lv++;
             }
         }
     }
-
 }
