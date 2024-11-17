@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class collectible : MonoBehaviour
+public class Collectible : MonoBehaviour
 {
     public AudioSource MyAudioSource;
     public static event EventHandler e_CoinCollection;

@@ -15,7 +15,6 @@ public class WallSpawner : MonoBehaviour
     [SerializeField]
     Vector3 wallCorner;
 
-    // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < rows; i++)
@@ -29,9 +28,4 @@ public class WallSpawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

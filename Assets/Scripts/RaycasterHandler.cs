@@ -16,14 +16,11 @@ public class RaycasterHandler : MonoBehaviour
     [SerializeField]
     bool testRaycasts;
 
-    // Start is called before the first frame update
     void Start()
     {
         layerMask = LayerMask.GetMask(LayerMask.LayerToName(gameObject.layer));
 
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (!testRaycasts) return;

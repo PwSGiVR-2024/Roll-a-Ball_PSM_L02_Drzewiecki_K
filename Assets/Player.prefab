@@ -149,15 +149,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 294bcdc5b7a3cf84dbd6f12997770694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrust: 0.25
-  rb: {fileID: 3123131739792433773}
-  score: 0
   a: 1
   current: 0
+  score: 0
+  maxScore: 0
+  rb: {fileID: 3123131739792433773}
   text: {fileID: 0}
   text2: {fileID: 0}
   text3: {fileID: 0}
   text4: {fileID: 0}
+  manager: {fileID: 0}
   Button: {fileID: 0}
   collisionImage: {fileID: 0}
   collisionAudio: {fileID: 0}

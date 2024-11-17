@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class winda : MonoBehaviour
+public class WindaControl : MonoBehaviour
 {
     private float speed = 2.5f;
     private float range = 5.0f;

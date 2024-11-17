@@ -6,10 +6,10 @@ using TMPro;
 using System.Runtime.ConstrainedExecution;
 using System;
 
-using static collectible;
-using static managerScript;
+using static Collectible;
+using static ManagerScript;
 
-public class movementController : MonoBehaviour
+public class MovementController : MonoBehaviour
 {
     public bool a = true;
     public bool current = false;
@@ -18,15 +18,16 @@ public class movementController : MonoBehaviour
     public int score;
     public int maxScore;
     public Rigidbody rb;
-    public TMP_Text text;
+    public TMP_Text text1;
     public TMP_Text text2;
     public TMP_Text text3;
     public TMP_Text text4;
     public GameObject manager;
-    public GameObject Button;
+    public GameObject button;
     public GameObject collisionImage;
     public AudioSource collisionAudio;
     public AudioSource levelCompleteAudio;
+    private ManagerScript gameManagerScript;
     private Vector3 startPosition;
 
     void Start()
@@ -35,22 +36,15 @@ public class movementController : MonoBehaviour
         startPosition = transform.position;
         e_CoinCollection += scoreUpdate;
         e_CoinCollection += winPrompt;
-        //maxScore = managerScript.maxScore;
 
-        if (collisionImage != null)
-        {
-            collisionImage.gameObject.SetActive(false);
-        }
-
-        if (collisionAudio == null)
-        {
-            collisionAudio = GetComponent<AudioSource>();
-        }
+        collisionComponents();
+        MaxScore();
     }
     void FixedUpdate()
     {
         udpatePosition();
     }
+
     private void udpatePosition()
     {
         if (Input.GetKey(KeyCode.W))
@@ -78,6 +72,30 @@ public class movementController : MonoBehaviour
             a = false;
         }
     }
+
+    private void MaxScore()
+    {
+        if (manager != null)
+        {
+            gameManagerScript = manager.GetComponent<ManagerScript>();
+            if (gameManagerScript != null)
+            {
+                maxScore = gameManagerScript.GetMaxScore();
+            }
+        }
+    }
+    private void collisionComponents()
+    {
+        if (collisionImage != null)
+        {
+            collisionImage.gameObject.SetActive(false);
+        }
+
+        if (collisionAudio == null)
+        {
+            collisionAudio = GetComponent<AudioSource>();
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         a = true;
@@ -89,18 +107,55 @@ public class movementController : MonoBehaviour
                 collisionAudio.Play();
             }
 
-            StartCoroutine(ShowCollisionImageAndReset());
+            ShowCollisionImageAndReset();
         }
     }
-    IEnumerator ShowCollisionImageAndReset()
+
+    private void scoreUpdate(object o, EventArgs e)
+    {
+        if (text1 != null)
+        {
+            score++;
+            text1.text = "Score: " + score;
+            text4.text = "Aktualny poziom: " + (lv + 1);
+        }
+    }
+
+    private void winPrompt(object o, EventArgs e)
+    {
+        if (score >= maxScore)
+        {
+            if (lv == 0)
+            {
+                if (text2 != null) text2.text = "WYGRA£EŒ POZIOM 1!";
+                if (button != null) button.SetActive(true);
+                if (levelCompleteAudio != null) levelCompleteAudio.Play();
+                lv++;
+                score = 0;
+            }
+            else if (lv == 1)
+            {
+                if (text2 != null) text2.text = "KONIEC GRY!";
+                if (button != null) button.SetActive(true);
+                if (levelCompleteAudio != null) levelCompleteAudio.Play();
+                if (text3 != null) text3.text = "Zakoñcz grê";
+                lv++;
+                score = 0;
+            }
+        }
+    }
+    private void ShowCollisionImageAndReset()
     {
         if (collisionImage != null)
         {
             collisionImage.gameObject.SetActive(true);
         }
 
-        yield return new WaitForSeconds(1.5f);
+        Invoke(nameof(ResetPosition), 1.5f);
+    }
 
+    private void ResetPosition()
+    {
         if (collisionImage != null)
         {
             collisionImage.gameObject.SetActive(false);
@@ -108,49 +163,7 @@ public class movementController : MonoBehaviour
 
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-
         transform.position = startPosition;
     }
 
-    public void scoreUpdate(object o, EventArgs e)
-    {
-        if (text != null)
-        {
-            score++;
-            text.text = "Score: " + score;
-            text4.text = "Aktualny poziom: " + lv+1;
-        }
-    }
-
-    public void winPrompt(object o, EventArgs e)
-    {
-        if (score >= 8)
-        {
-            if (lv == 0)
-            {
-                Debug.Log("WYGRALES POZIOM 1!");
-                if (text2 != null) text2.text = "WYGRALES POZIOM 1!";
-                if (Button != null) Button.SetActive(true);
-                if (levelCompleteAudio != null)
-                {
-                    levelCompleteAudio.Play();
-                }
-                score = 0;
-                lv++;
-            }
-            else if (lv == 1)
-            {
-                Debug.Log("KONIEC GRY!");
-                if (text2 != null) text2.text = "KONIEC GRY!";
-                if (Button != null) Button.SetActive(true);
-                if (levelCompleteAudio != null)
-                {
-                    levelCompleteAudio.Play();
-                }
-                score = 0;
-                if (text3 != null) text3.text = "Zakoncz gre";
-                lv++;
-            }
-        }
-    }
 }
