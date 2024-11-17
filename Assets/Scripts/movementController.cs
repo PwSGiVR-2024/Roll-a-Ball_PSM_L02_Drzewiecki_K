@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
-using System.Runtime.ConstrainedExecution;
 using System;
 
 using static Collectible;
-using static ManagerScript;
 
 public class MovementController : MonoBehaviour
 {
@@ -34,18 +29,18 @@ public class MovementController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
-        e_CoinCollection += scoreUpdate;
-        e_CoinCollection += winPrompt;
+        e_CoinCollection += ScoreUpdate;
+        e_CoinCollection += WinPrompt;
 
-        collisionComponents();
+        CollisionComponents();
         MaxScore();
     }
     void FixedUpdate()
     {
-        udpatePosition();
+        UpdatePosition();
     }
 
-    private void udpatePosition()
+    private void UpdatePosition()
     {
         if (Input.GetKey(KeyCode.W))
         {
@@ -84,7 +79,7 @@ public class MovementController : MonoBehaviour
             }
         }
     }
-    private void collisionComponents()
+    private void CollisionComponents()
     {
         if (collisionImage != null)
         {
@@ -111,7 +106,7 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    private void scoreUpdate(object o, EventArgs e)
+    private void ScoreUpdate(object o, EventArgs e)
     {
         if (text1 != null)
         {
@@ -121,7 +116,7 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    private void winPrompt(object o, EventArgs e)
+    private void WinPrompt(object o, EventArgs e)
     {
         if (score >= maxScore)
         {
@@ -139,7 +134,7 @@ public class MovementController : MonoBehaviour
                 if (button != null) button.SetActive(true);
                 if (levelCompleteAudio != null) levelCompleteAudio.Play();
                 if (text3 != null) text3.text = "Zakoñcz grê";
-                lv++;
+                lv = 0;
                 score = 0;
             }
         }

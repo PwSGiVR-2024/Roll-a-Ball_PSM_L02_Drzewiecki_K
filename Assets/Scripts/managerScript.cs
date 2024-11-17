@@ -1,9 +1,10 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class ManagerScript : MonoBehaviour
 {
     GameObject[] collectibles;
     public int maxScore;
+    public GameObject ButtonNextLevel;
 
     private void Awake()
     {
@@ -21,4 +22,17 @@ public class ManagerScript : MonoBehaviour
     {
         return maxScore;
     }
+
+    public void nextLevel()
+    {
+        if (MovementController.lv == 1)
+        {
+            SceneManager.LoadScene("NowiutkiPoziom", LoadSceneMode.Single);
+        }
+        else if (MovementController.lv == 0)
+        {
+            SceneManager.LoadScene("menu", LoadSceneMode.Single);
+        }
+    }
+
 }
