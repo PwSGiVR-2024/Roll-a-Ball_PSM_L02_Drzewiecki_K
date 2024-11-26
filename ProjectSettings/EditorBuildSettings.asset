@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: f101c161e8437bb45b2c63280c615318
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    guid: d28eef9c7d4ef704cb9136b57d9dd112
   - enabled: 1
     path: Assets/Scenes/NowiutkiPoziom.unity
     guid: 4b5930cb36d0e3441980e29bb3622c9e

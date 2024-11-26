@@ -3,7 +3,7 @@ using UnityEngine;
 public class WindaControl : MonoBehaviour
 {
     public float speed = 2.5f;
-    private float range = 5.0f;
+    private float range = 6f;
     private int direction = 1;
 
     private float startPositionY;

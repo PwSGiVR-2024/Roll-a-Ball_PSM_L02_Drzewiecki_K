@@ -62,7 +62,7 @@ public class MovementController : MonoBehaviour
         {
             if (a == true)
             {
-                rb.AddForce(0, 4, 0, ForceMode.Impulse);
+                rb.AddForce(0, 5, 0, ForceMode.Impulse);
             }
             a = false;
         }
