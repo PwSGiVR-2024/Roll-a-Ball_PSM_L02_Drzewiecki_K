@@ -29,6 +29,10 @@ public class ManagerScript : MonoBehaviour
         {
             SceneManager.LoadScene("NowiutkiPoziom", LoadSceneMode.Single);
         }
+        else if (MovementController.lv == 2)
+        {
+            SceneManager.LoadScene("FinalBoss", LoadSceneMode.Single);
+        }
         else if (MovementController.lv == 0)
         {
             SceneManager.LoadScene("menu", LoadSceneMode.Single);

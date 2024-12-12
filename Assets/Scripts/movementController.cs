@@ -130,12 +130,19 @@ public class MovementController : MonoBehaviour
             }
             else if (lv == 1)
             {
+                if (text2 != null) text2.text = "WYGRA£EŒ POZIOM 2!";
+                if (button != null) button.SetActive(true);
+                if (levelCompleteAudio != null) levelCompleteAudio.Play();
+                lv++;
+                score = 0;
+            }
+            else if (lv == 2)
+            {
                 if (text2 != null) text2.text = "KONIEC GRY!";
                 if (button != null) button.SetActive(true);
                 if (levelCompleteAudio != null) levelCompleteAudio.Play();
                 if (text3 != null) text3.text = "Zakoñcz grê";
                 lv = 0;
-                score = 0;
             }
         }
     }
