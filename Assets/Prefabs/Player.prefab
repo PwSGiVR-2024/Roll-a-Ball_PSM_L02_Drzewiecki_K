@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2028516922716990385}
   - component: {fileID: 3123131739792433773}
   - component: {fileID: 1762935735676482474}
+  - component: {fileID: 2535634286516527514}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -149,17 +150,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 294bcdc5b7a3cf84dbd6f12997770694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canJump: 1
   a: 1
-  current: 0
   score: 0
   maxScore: 0
-  rb: {fileID: 3123131739792433773}
-  text: {fileID: 0}
+  text1: {fileID: 0}
   text2: {fileID: 0}
   text3: {fileID: 0}
   text4: {fileID: 0}
   manager: {fileID: 0}
-  Button: {fileID: 0}
+  button: {fileID: 0}
   collisionImage: {fileID: 0}
   collisionAudio: {fileID: 0}
   levelCompleteAudio: {fileID: 0}
+--- !u!114 &2535634286516527514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3022662177959632893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6558b93f28f8394c8871489d1fbce3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

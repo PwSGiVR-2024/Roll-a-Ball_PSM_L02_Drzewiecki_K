@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 459877701}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1044,6 +1044,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: elevator (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5419743584221078617, guid: 4d09fed8816566140b72e2d016a03497, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1063,7 +1067,7 @@ GameObject:
   - component: {fileID: 828457275}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1419,6 +1423,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b025859842d680f42a76ad8c851ea7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  mouseSensitivity: 100
+  distanceFromPlayer: 5
+  pitchLimits: {x: -30, y: 60}
 --- !u!1 &976256602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,7 +1659,7 @@ GameObject:
   - component: {fileID: 1099106810}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1770,7 +1778,7 @@ GameObject:
   - component: {fileID: 1115738711}
   m_Layer: 0
   m_Name: Ground2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2098,7 +2106,7 @@ GameObject:
   - component: {fileID: 1397755607}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2444,7 +2452,7 @@ GameObject:
   - component: {fileID: 1444844675}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2587,7 +2595,7 @@ GameObject:
   - component: {fileID: 1603933264}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2711,7 +2719,7 @@ GameObject:
   - component: {fileID: 1797423430}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2862,6 +2870,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: elevator
       objectReference: {fileID: 0}
+    - target: {fileID: 5419743584221078617, guid: 4d09fed8816566140b72e2d016a03497, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2919,6 +2931,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: elevator (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5419743584221078617, guid: 4d09fed8816566140b72e2d016a03497, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 6942187416411971717, guid: 4d09fed8816566140b72e2d016a03497, type: 3}
       propertyPath: speed
       value: 2
@@ -2942,7 +2958,7 @@ GameObject:
   - component: {fileID: 1974941475}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3208,7 +3224,7 @@ GameObject:
   - component: {fileID: 2138742629}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

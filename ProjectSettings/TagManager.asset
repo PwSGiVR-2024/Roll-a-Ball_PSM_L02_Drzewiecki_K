@@ -9,6 +9,7 @@ TagManager:
   - collectible
   - manager
   - Boss
+  - Ground
   layers:
   - Default
   - TransparentFX

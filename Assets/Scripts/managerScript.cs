@@ -1,42 +1,48 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class ManagerScript : MonoBehaviour
 {
-    GameObject[] collectibles;
     public int maxScore;
     public GameObject ButtonNextLevel;
+    public static ManagerScript Instance;
 
     private void Awake()
     {
-        collectibles = GameObject.FindGameObjectsWithTag("collectible");
-        Score();
-    }
-    void Score()
-    {
-        for (int i = 0; i < collectibles.Length; i++)
+        if (Instance == null)
         {
-            maxScore++;
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);    // singleton
         }
     }
+
+    public void CalculateScore()
+    {
+        GameObject[] collectibles = GameObject.FindGameObjectsWithTag("collectible");
+        maxScore = collectibles.Length;
+    }
+
     public int GetMaxScore()
     {
         return maxScore;
     }
 
-    public void nextLevel()
+    public void NextLevel()
     {
-        if (MovementController.lv == 1)
+        if (MovementController.lv == 0)
         {
             SceneManager.LoadScene("NowiutkiPoziom", LoadSceneMode.Single);
         }
-        else if (MovementController.lv == 2)
+        else if (MovementController.lv == 1)
         {
             SceneManager.LoadScene("FinalBoss", LoadSceneMode.Single);
         }
-        else if (MovementController.lv == 0)
+        else if (MovementController.lv == 2)
         {
-            SceneManager.LoadScene("menu", LoadSceneMode.Single);
+            SceneManager.LoadScene("Menu", LoadSceneMode.Single);
         }
     }
-
 }

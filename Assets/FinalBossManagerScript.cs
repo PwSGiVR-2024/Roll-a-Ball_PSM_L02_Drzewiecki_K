@@ -1,10 +1,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class GameManager2 : MonoBehaviour
+public class FinalBossManager : MonoBehaviour
 {
-    public RawImage klinRawImage;
+    public RawImage kilnRawImage;
     public RawImage gwynRawImage;
     public RawImage winPromptRawImage;
     public Texture[] bossHealthTextures;
@@ -23,7 +24,7 @@ public class GameManager2 : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ShowRawImageWithFadeOut(klinRawImage));
+        StartCoroutine(ShowRawImageWithFadeOut(kilnRawImage));
         BossDetectionScript.e_Collision += PlayerCollision;
     }
 
@@ -54,7 +55,6 @@ public class GameManager2 : MonoBehaviour
         rawImage.color = new Color(1, 1, 1, 0);
         rawImage.gameObject.SetActive(false);
     }
-
 
     private IEnumerator FadeOutMusic(AudioSource audioSource)
     {
@@ -107,7 +107,6 @@ public class GameManager2 : MonoBehaviour
     private void BossDefeated()
     {
         bossDefeated = true;
-        Debug.Log("Boss pokonany!");
 
         if (bossObject != null)
         {
@@ -119,53 +118,48 @@ public class GameManager2 : MonoBehaviour
 
     private IEnumerator HandleBossDefeatSequence()
     {
-        print("boss defeated");
         yield return StartCoroutine(FadeOutMusic(bossMusicSource));
-        yield return StartCoroutine(FadeOutRawImage(gwynRawImage));
+        yield return StartCoroutine(FadeOutRawImage(gwynRawImage, 1f));
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         PlayDefeatSound();
-        yield return StartCoroutine(FadeInRawImage(winPromptRawImage));
+        yield return StartCoroutine(FadeInRawImage(winPromptRawImage, 0.5f));
 
         yield return new WaitForSeconds(3f);
-        yield return StartCoroutine(FadeOutRawImage(winPromptRawImage));
+        yield return StartCoroutine(FadeOutRawImage(winPromptRawImage, 1f));
+
+        yield return new WaitForSeconds(1f);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene("menu", LoadSceneMode.Single);
     }
 
-
-    private IEnumerator FadeOutRawImage(RawImage rawImage)
+    private IEnumerator FadeImage(RawImage image, float startAlpha, float endAlpha, float duration)
     {
-        float elapsedTime = 0;
-        Color originalColor = rawImage.color;
+        float elapsedTime = 0f;
+        Color originalColor = image.color;
 
-        while (elapsedTime < fadeDuration)
+        while (elapsedTime < duration)
         {
-            float alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
-            rawImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            image.color = new Color(originalColor.r, originalColor.g, originalColor.b, Mathf.Lerp(startAlpha, endAlpha, elapsedTime / duration));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        rawImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
+        image.color = new Color(originalColor.r, originalColor.g, originalColor.b, endAlpha);
+    }
+
+    private IEnumerator FadeOutRawImage(RawImage rawImage, float duration)
+    {
+        yield return FadeImage(rawImage, 1f, 0f, duration);
         rawImage.gameObject.SetActive(false);
     }
 
-    private IEnumerator FadeInRawImage(RawImage rawImage)
+    private IEnumerator FadeInRawImage(RawImage rawImage, float duration)
     {
         rawImage.gameObject.SetActive(true);
-        float elapsedTime = 0;
-        Color originalColor = rawImage.color;
-        rawImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
-
-        while (elapsedTime < fadeDuration)
-        {
-            float alpha = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);
-            rawImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        rawImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1);
+        yield return FadeImage(rawImage, 0f, 1f, duration);
     }
 
     private void PlayerCollision(object s, Collision collision)
@@ -174,7 +168,6 @@ public class GameManager2 : MonoBehaviour
         {
             HitBoss();
         }
-        Debug.Log($"Kolizja z: {collision.gameObject.name}");
     }
 
     public void HitBoss()

@@ -12,7 +12,7 @@ public class PortalController : MonoBehaviour
     private Transform player;
 
     public Collider physicalBlocker;
-    public GameManager2 gameManager;
+    public FinalBossManager gameManager;
 
     private void Start()
     {
