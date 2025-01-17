@@ -46,6 +46,8 @@ public class MovementController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (ManagerScript.Instance.IsDialogueActive())
+            return;
         if (lv == 2)
         {
             FinalBossMovement();

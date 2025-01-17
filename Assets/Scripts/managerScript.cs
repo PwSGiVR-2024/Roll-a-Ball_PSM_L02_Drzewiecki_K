@@ -1,11 +1,27 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System.Collections;
 
 public class ManagerScript : MonoBehaviour
 {
     public int maxScore;
     public GameObject ButtonNextLevel;
     public static ManagerScript Instance;
+
+    public GameObject dialogueBox;
+    public TMP_Text dialogueText;
+    public Camera mainCamera;
+    public Camera secondaryCamera;
+    public AudioSource textAudio;
+
+    private string[] dialogueMessages = {
+        "Witaj w grze WiedŸmin 5! W najnowszej ods³onie tej uwielbianej serii czekaj¹ na ciebie niesamowite wyzwania platformowe, a na koñcu zawalczysz z bossem!",
+        "Poruszaj siê klawiszami W, A, S, D, skacz Spacj¹ - pamiêtaj, mo¿esz odbiæ siê od œciany lub obiektu, je¿eli wystarczaj¹co szybko wciœniesz ponownie spacje!",
+        "Jakieœ pytania? Brak? W takim razie - mi³ej zabawy! Do zobaczenia w Raymanie 4!"
+    };
+    private int currentMessageIndex = 0;
+    private bool isDialogueActive = true;
 
     private void Awake()
     {
@@ -15,7 +31,36 @@ public class ManagerScript : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);    // singleton
+            Destroy(gameObject); // singleton
+        }
+
+        if (MovementController.lv == 0)
+        {
+            if (secondaryCamera != null) secondaryCamera.gameObject.SetActive(true);
+            if (mainCamera != null) mainCamera.gameObject.SetActive(false);
+        }
+        else
+        {
+            if (dialogueBox != null) dialogueBox.SetActive(false);
+            if (secondaryCamera != null) secondaryCamera.gameObject.SetActive(false);
+            if (mainCamera != null) mainCamera.gameObject.SetActive(true);
+            isDialogueActive = false;
+        }
+    }
+
+    private void Start()
+    {
+        if (MovementController.lv == 0)
+        {
+            ShowDialogue();
+        }
+    }
+
+    private void Update()
+    {
+        if (isDialogueActive && Input.GetMouseButtonDown(0))
+        {
+            NextDialogueMessage();
         }
     }
 
@@ -44,5 +89,65 @@ public class ManagerScript : MonoBehaviour
         {
             SceneManager.LoadScene("Menu", LoadSceneMode.Single);
         }
+    }
+
+    public bool IsDialogueActive()
+    {
+        return isDialogueActive;
+    }
+
+    private void ShowDialogue()
+    {
+        if (dialogueBox != null)
+        {
+            dialogueBox.SetActive(true);
+            StartCoroutine(TypeText(dialogueMessages[currentMessageIndex]));
+        }
+    }
+
+    private IEnumerator TypeText(string message)
+    {
+        dialogueText.text = "";
+
+        if (textAudio != null)
+        {
+            textAudio.Play();
+        }
+
+        foreach (char letter in message)
+        {
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    private void NextDialogueMessage()
+    {
+        if (dialogueText.text != dialogueMessages[currentMessageIndex])
+        {
+            StopAllCoroutines();
+            dialogueText.text = dialogueMessages[currentMessageIndex];
+        }
+        else
+        {
+            currentMessageIndex++;
+            if (currentMessageIndex < dialogueMessages.Length)
+            {
+                StartCoroutine(TypeText(dialogueMessages[currentMessageIndex]));
+            }
+            else
+            {
+                EndDialogue();
+            }
+        }
+    }
+
+    private void EndDialogue()
+    {
+        isDialogueActive = false;
+        if (dialogueBox != null) dialogueBox.SetActive(false);
+
+        if (secondaryCamera != null) secondaryCamera.gameObject.SetActive(false);
+        if (mainCamera != null) mainCamera.gameObject.SetActive(true);
     }
 }

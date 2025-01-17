@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
 
         if (isFinalLevel)
         {
-            Cursor.lockState = CursorLockMode.Locked; // Ukrycie kursora i zablokowanie go na œrodku ekranu
+            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
         else
