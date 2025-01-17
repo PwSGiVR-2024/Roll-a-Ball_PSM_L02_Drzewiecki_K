@@ -1039,17 +1039,6 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
---- !u!114 &304472999 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4148593350646081367, guid: c2919bc34080ea14297bd21fe41bc308, type: 3}
-  m_PrefabInstance: {fileID: 1939945779}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &342544531
 GameObject:
   m_ObjectHideFlags: 0
@@ -8876,7 +8865,7 @@ PrefabInstance:
     - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
       propertyPath: text3
       value: 
-      objectReference: {fileID: 304472999}
+      objectReference: {fileID: 0}
     - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
       propertyPath: text4
       value: 

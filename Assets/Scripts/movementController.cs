@@ -202,7 +202,7 @@ public class MovementController : MonoBehaviour
         if (text1 != null)
         {
             score++;
-            text1.text = "Score: " + score;
+            text1.text = "Wynik: " + score;
             text4.text = "Aktualny poziom: " + (lv + 1);
         }
     }
@@ -217,22 +217,15 @@ public class MovementController : MonoBehaviour
 
             if (lv == 0)
             {
-                if (text2 != null) text2.text = "WYGRAŁEŚ POZIOM 1!";
+                if (text2 != null) text2.text = "POZIOM 1 FINITO!";
                 if (button != null) button.SetActive(true);
                 if (levelCompleteAudio != null) levelCompleteAudio.Play();
             }
             else if (lv == 1)
             {
-                if (text2 != null) text2.text = "WYGRAŁEŚ POZIOM 2!";
+                if (text2 != null) text2.text = "POZIOM 2 FINITO!";
                 if (button != null) button.SetActive(true);
                 if (levelCompleteAudio != null) levelCompleteAudio.Play();
-            }
-            else if (lv == 2)
-            {
-                if (text2 != null) text2.text = "KONIEC GRY!";
-                if (button != null) button.SetActive(true);
-                if (levelCompleteAudio != null) levelCompleteAudio.Play();
-                if (text3 != null) text3.text = "Zakończ grę";
             }
         }
     }
