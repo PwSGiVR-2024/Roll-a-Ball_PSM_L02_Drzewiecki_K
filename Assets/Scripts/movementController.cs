@@ -16,7 +16,6 @@ public class MovementController : MonoBehaviour
     public TMP_Text text1;
     public TMP_Text text2;
     public TMP_Text text3;
-    public TMP_Text text4;
     public GameObject button;
     public GameObject collisionImage;
     public AudioSource collisionAudio;
@@ -180,9 +179,9 @@ public class MovementController : MonoBehaviour
         GameObject[] collectibles = GameObject.FindGameObjectsWithTag("collectible");
         maxScore = collectibles.Length;
 
-        if (text4 != null)
+        if (text3 != null)
         {
-            text4.text = $"Aktualny poziom: {lv + 1}, Maksymalny wynik: {maxScore}";
+            text3.text = $"Aktualny poziom: {lv + 1}, Maksymalny wynik: {maxScore}";
         }
     }
 
@@ -205,7 +204,7 @@ public class MovementController : MonoBehaviour
         {
             score++;
             text1.text = "Wynik: " + score;
-            text4.text = "Aktualny poziom: " + (lv + 1);
+            text3.text = "Aktualny poziom: " + (lv + 1);
         }
     }
 

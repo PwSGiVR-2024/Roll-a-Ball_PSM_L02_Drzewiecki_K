@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f8c6fcff763c55641a34e9cb9c833b9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -158,7 +158,6 @@ MonoBehaviour:
   text2: {fileID: 0}
   text3: {fileID: 0}
   text4: {fileID: 0}
-  manager: {fileID: 0}
   button: {fileID: 0}
   collisionImage: {fileID: 0}
   collisionAudio: {fileID: 0}

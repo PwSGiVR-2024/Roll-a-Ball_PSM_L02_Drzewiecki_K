@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 516744382}
   - component: {fileID: 516744381}
   m_Layer: 0
-  m_Name: musicZenek
+  m_Name: ZenekAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -990,7 +990,7 @@ GameObject:
   - component: {fileID: 1484482687}
   - component: {fileID: 1484482686}
   m_Layer: 0
-  m_Name: clickSound
+  m_Name: ButtonAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
