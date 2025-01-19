@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 59340c34796aba74f821afc78115b91c
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12964
+  packageName: Sand Textures Pack
+  packageVersion: 1.00
+  assetPath: Assets/Sand textures pack/Sand 07/diffuse.tga
+  uploadId: 29422
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -193,10 +200,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 12964
-  packageName: Sand Textures Pack
-  packageVersion: 1.00
-  assetPath: Assets/Sand textures pack/Sand 07/diffuse.tga
-  uploadId: 29422
