@@ -8,30 +8,29 @@ using static Collectible;
 public class MovementController : MonoBehaviour
 {
     public static int lv = 0;
-    public bool canJump = true;
-    public bool a = true;
-    public int score;
-    public int maxScore;
-    private bool levelCompleted = false;
-    public TMP_Text text1;
-    public TMP_Text text2;
-    public TMP_Text text3;
-    public GameObject button;
-    public GameObject collisionImage;
-    public AudioSource collisionAudio;
-    public AudioSource levelCompleteAudio;
+    public bool CanJump = true;
+    public bool IsJumping = true;
+    public int Score;
+    public int MaxScore;
+    private bool LevelCompleted = false;
+    public TMP_Text Text1;
+    public TMP_Text Text2;
+    public TMP_Text Text3;
+    public GameObject Button;
+    public GameObject CollisionImage;
+    public AudioSource CollisionAudio;
+    public AudioSource LevelCompleteAudio;
 
-    private float thrust = 0.2f;
-    private Rigidbody rb;
-    private Vector3 startPosition;
-    private ManagerScript gameManagerScript;
-    private Transform cameraTransform;
+    private float Thrust = 0.2f;
+    private Rigidbody Rb;
+    private Vector3 StartPosition;
+    private Transform CameraTransform;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        startPosition = transform.position;
-        cameraTransform = Camera.main.transform;
+        Rb = GetComponent<Rigidbody>();
+        StartPosition = transform.position;
+        CameraTransform = Camera.main.transform;
         UpdateLevelBasedOnScene();
     }
 
@@ -39,8 +38,8 @@ public class MovementController : MonoBehaviour
     {
         e_CoinCollection += ScoreUpdate;
         e_CoinCollection += WinPrompt;
-        CollisionComponents();
-        MaxScore();
+        InitializeCollisionComponents();
+        UpdateMaxScore();
     }
 
     void FixedUpdate()
@@ -83,24 +82,24 @@ public class MovementController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForce(0, 0, thrust, ForceMode.Impulse);
+            Rb.AddForce(0, 0, Thrust, ForceMode.Impulse);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            rb.AddForce(0, 0, -thrust, ForceMode.Impulse);
+            Rb.AddForce(0, 0, -Thrust, ForceMode.Impulse);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddForce(thrust, 0, 0, ForceMode.Impulse);
+            Rb.AddForce(Thrust, 0, 0, ForceMode.Impulse);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddForce(-thrust, 0, 0, ForceMode.Impulse);
+            Rb.AddForce(-Thrust, 0, 0, ForceMode.Impulse);
         }
-        if (Input.GetKey(KeyCode.Space) && a)
+        if (Input.GetKey(KeyCode.Space) && IsJumping)
         {
-            rb.AddForce(0, 5, 0, ForceMode.Impulse);
-            a = false;
+            Rb.AddForce(0, 5, 0, ForceMode.Impulse);
+            IsJumping = false;
         }
     }
 
@@ -114,8 +113,8 @@ public class MovementController : MonoBehaviour
         if (Input.GetKey(KeyCode.W)) verticalInput = 1f;
         else if (Input.GetKey(KeyCode.S)) verticalInput = -1f;
 
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
+        Vector3 forward = CameraTransform.forward;
+        Vector3 right = CameraTransform.right;
 
         forward.y = 0f;
         right.y = 0f;
@@ -125,12 +124,12 @@ public class MovementController : MonoBehaviour
 
         Vector3 movementDirection = (forward * verticalInput + right * horizontalInput).normalized;
 
-        rb.AddForce(movementDirection * thrust, ForceMode.Impulse);
+        Rb.AddForce(movementDirection * Thrust, ForceMode.Impulse);
 
-        if (Input.GetKey(KeyCode.Space) && canJump)
+        if (Input.GetKey(KeyCode.Space) && CanJump)
         {
-            rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
-            canJump = false;
+            Rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+            CanJump = false;
         }
     }
 
@@ -138,15 +137,15 @@ public class MovementController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("ResetPlane"))
         {
-            canJump = true;
-            a = true;
+            CanJump = true;
+            IsJumping = true;
         }
 
         if (collision.gameObject.CompareTag("ResetPlane"))
         {
-            if (collisionAudio != null)
+            if (CollisionAudio != null)
             {
-                collisionAudio.Play();
+                CollisionAudio.Play();
             }
 
             ShowCollisionImageAndReset();
@@ -155,9 +154,9 @@ public class MovementController : MonoBehaviour
 
     private void ShowCollisionImageAndReset()
     {
-        if (collisionImage != null)
+        if (CollisionImage != null)
         {
-            collisionImage.gameObject.SetActive(true);
+            CollisionImage.SetActive(true);
         }
 
         Invoke(nameof(ResetPosition), 1.5f);
@@ -165,68 +164,68 @@ public class MovementController : MonoBehaviour
 
     private void ResetPosition()
     {
-        if (collisionImage != null)
+        if (CollisionImage != null)
         {
-            collisionImage.gameObject.SetActive(false);
+            CollisionImage.SetActive(false);
         }
 
-        rb.linearVelocity = Vector3.zero;
-        transform.position = startPosition;
+        Rb.linearVelocity = Vector3.zero;
+        transform.position = StartPosition;
     }
 
-    private void MaxScore()
+    private void UpdateMaxScore()
     {
         GameObject[] collectibles = GameObject.FindGameObjectsWithTag("collectible");
-        maxScore = collectibles.Length;
+        MaxScore = collectibles.Length;
 
-        if (text3 != null)
+        if (Text3 != null)
         {
-            text3.text = $"Aktualny poziom: {lv + 1}, Maksymalny wynik: {maxScore}";
+            Text3.text = $"Aktualny poziom: {lv + 1}, Maksymalny wynik: {MaxScore}";
         }
     }
 
-    private void CollisionComponents()
+    private void InitializeCollisionComponents()
     {
-        if (collisionImage != null)
+        if (CollisionImage != null)
         {
-            collisionImage.gameObject.SetActive(false);
+            CollisionImage.SetActive(false);
         }
 
-        if (collisionAudio == null)
+        if (CollisionAudio == null)
         {
-            collisionAudio = GetComponent<AudioSource>();
+            CollisionAudio = GetComponent<AudioSource>();
         }
     }
 
     private void ScoreUpdate(object o, EventArgs e)
     {
-        if (text1 != null)
+        if (Text1 != null)
         {
-            score++;
-            text1.text = "Wynik: " + score;
-            text3.text = "Aktualny poziom: " + (lv + 1);
+            Score++;
+            Text1.text = "Wynik: " + Score;
+            Text3.text = "Aktualny poziom: " + (lv + 1);
         }
     }
 
     private void WinPrompt(object o, EventArgs e)
     {
-        if (levelCompleted) return;
+        if (LevelCompleted) return;
 
-        if (score >= maxScore)
+        if (Score >= MaxScore)
         {
-            levelCompleted = true;
+            LevelCompleted = true;
 
             if (lv == 0)
             {
-                if (text2 != null) text2.text = "POZIOM 1 FINITO!";
-                if (button != null) button.SetActive(true);
-                if (levelCompleteAudio != null) levelCompleteAudio.Play();
+                if (Text2 != null) Text2.text = "POZIOM 1 FINITO!";
+                if (Button != null) Button.SetActive(true);
+                if (LevelCompleteAudio != null) LevelCompleteAudio.Play();
             }
             else if (lv == 1)
             {
-                if (text2 != null) text2.text = "POZIOM 2 FINITO!";
-                if (button != null) button.SetActive(true);
-                if (levelCompleteAudio != null) levelCompleteAudio.Play();
+                if (Text2 != null) Text2.text = "POZIOM 2 FINITO!";
+                if (Button != null) Button.SetActive(true);
+                if (LevelCompleteAudio != null) LevelCompleteAudio.Play();
             }
         }
     }

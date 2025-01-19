@@ -4,21 +4,25 @@ using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
     public GameObject OptionsPanel;
-    public bool cur;
+    private bool _cur;
+
     public void StartGame()
     {
         SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
     }
+
     public void ShowOptions(bool isActive)
     {
         OptionsPanel.SetActive(isActive);
-        cur = isActive;
+        _cur = isActive;
     }
+
     public void GoBack()
     {
-        cur = false;
-        OptionsPanel.SetActive(cur);
+        _cur = false;
+        OptionsPanel.SetActive(_cur);
     }
+
     public void ExitGame()
     {
         Application.Quit(0);

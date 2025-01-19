@@ -6,7 +6,7 @@ using System.Collections;
 public class ManagerScript : MonoBehaviour
 {
     public int maxScore;
-    public GameObject ButtonNextLevel;
+    public GameObject buttonNextLevel;
     public static ManagerScript Instance;
 
     public GameObject dialogueBox;
@@ -15,13 +15,13 @@ public class ManagerScript : MonoBehaviour
     public Camera secondaryCamera;
     public AudioSource textAudio;
 
-    private string[] dialogueMessages = {
+    private string[] _dialogueMessages = {
         "Witaj w grze WiedŸmin 5! W najnowszej ods³onie tej uwielbianej serii czekaj¹ na ciebie niesamowite wyzwania platformowe, a na koñcu zawalczysz z bossem!",
-        "Poruszaj siê klawiszami W, A, S, D, skacz Spacj¹ - pamiêtaj, mo¿esz odbiæ siê od œciany lub obiektu, je¿eli wystarczaj¹co szybko wciœniesz ponownie spacje!",
+        "Poruszaj siê klawiszami W, A, S, D, skacz Spacj¹ - pamiêtaj, mo¿esz odbiæ siê od œciany lub obiektu, je¿eli wystarczaj¹co szybko wciœniesz ponownie spacjê!",
         "Jakieœ pytania? Brak? W takim razie - mi³ej zabawy! Do zobaczenia w Raymanie 4!"
     };
-    private int currentMessageIndex = 0;
-    private bool isDialogueActive = true;
+    private int _currentMessageIndex = 0;
+    private bool _isDialogueActive = true;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class ManagerScript : MonoBehaviour
             if (dialogueBox != null) dialogueBox.SetActive(false);
             if (secondaryCamera != null) secondaryCamera.gameObject.SetActive(false);
             if (mainCamera != null) mainCamera.gameObject.SetActive(true);
-            isDialogueActive = false;
+            _isDialogueActive = false;
         }
     }
 
@@ -58,7 +58,7 @@ public class ManagerScript : MonoBehaviour
 
     private void Update()
     {
-        if (isDialogueActive && Input.GetMouseButtonDown(0))
+        if (_isDialogueActive && Input.GetMouseButtonDown(0))
         {
             NextDialogueMessage();
         }
@@ -93,7 +93,7 @@ public class ManagerScript : MonoBehaviour
 
     public bool IsDialogueActive()
     {
-        return isDialogueActive;
+        return _isDialogueActive;
     }
 
     private void ShowDialogue()
@@ -101,7 +101,7 @@ public class ManagerScript : MonoBehaviour
         if (dialogueBox != null)
         {
             dialogueBox.SetActive(true);
-            StartCoroutine(TypeText(dialogueMessages[currentMessageIndex]));
+            StartCoroutine(TypeText(_dialogueMessages[_currentMessageIndex]));
         }
     }
 
@@ -123,17 +123,17 @@ public class ManagerScript : MonoBehaviour
 
     private void NextDialogueMessage()
     {
-        if (dialogueText.text != dialogueMessages[currentMessageIndex])
+        if (dialogueText.text != _dialogueMessages[_currentMessageIndex])
         {
             StopAllCoroutines();
-            dialogueText.text = dialogueMessages[currentMessageIndex];
+            dialogueText.text = _dialogueMessages[_currentMessageIndex];
         }
         else
         {
-            currentMessageIndex++;
-            if (currentMessageIndex < dialogueMessages.Length)
+            _currentMessageIndex++;
+            if (_currentMessageIndex < _dialogueMessages.Length)
             {
-                StartCoroutine(TypeText(dialogueMessages[currentMessageIndex]));
+                StartCoroutine(TypeText(_dialogueMessages[_currentMessageIndex]));
             }
             else
             {
@@ -144,7 +144,7 @@ public class ManagerScript : MonoBehaviour
 
     private void EndDialogue()
     {
-        isDialogueActive = false;
+        _isDialogueActive = false;
         if (dialogueBox != null) dialogueBox.SetActive(false);
 
         if (secondaryCamera != null) secondaryCamera.gameObject.SetActive(false);

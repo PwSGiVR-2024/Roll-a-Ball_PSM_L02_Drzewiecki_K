@@ -1,36 +1,50 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PortalController : MonoBehaviour
 {
-    public float moveDistance = 10f;
-    public float pauseDuration = 1f;
-    public float moveDuration = 2f;
-    public KeyCode activationKey = KeyCode.E;
+    private float _moveDistance = 25f;
+    private float _pauseDuration = 1f;
+    private float _moveDuration = 3f;
+    private KeyCode _activationKey = KeyCode.E;
 
-    private bool isTeleporting = false;
-    private bool playerInRange = false;
-    private Transform player;
+    private bool _isTeleporting = false;
+    private bool _isPlayerInRange = false;
+    private Transform _player;
 
-    public Collider physicalBlocker;
-    public FinalBossManager gameManager;
+    public Collider PhysicalBlocker;
+    public FinalBossManager GameManager;
+
+    public RawImage EButton;
 
     private void Start()
     {
-        if (physicalBlocker != null)
+        if (PhysicalBlocker != null)
         {
-            physicalBlocker.enabled = true;
+            PhysicalBlocker.enabled = true;
+        }
+
+        if (EButton != null)
+        {
+            EButton.enabled = false;
         }
     }
 
     private void Update()
     {
-        if (playerInRange && !isTeleporting && Input.GetKeyDown(activationKey))
+        if (_isPlayerInRange && !_isTeleporting && Input.GetKeyDown(_activationKey))
         {
-            if (physicalBlocker != null)
+            if (PhysicalBlocker != null)
             {
-                physicalBlocker.enabled = false;
+                PhysicalBlocker.enabled = false;
             }
-            StartCoroutine(TeleportPlayer(player));
+
+            if (EButton != null)
+            {
+                EButton.enabled = false;
+            }
+
+            StartCoroutine(TeleportPlayer(_player));
         }
     }
 
@@ -38,8 +52,13 @@ public class PortalController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true;
-            player = other.transform;
+            _isPlayerInRange = true;
+            _player = other.transform;
+
+            if (EButton != null)
+            {
+                EButton.enabled = true;
+            }
         }
     }
 
@@ -47,14 +66,19 @@ public class PortalController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
-            player = null;
+            _isPlayerInRange = false;
+            _player = null;
+
+            if (EButton != null)
+            {
+                EButton.enabled = false;
+            }
         }
     }
 
     private System.Collections.IEnumerator TeleportPlayer(Transform player)
     {
-        isTeleporting = true;
+        _isTeleporting = true;
 
         MovementController2 movement = player.GetComponent<MovementController2>();
         if (movement != null) movement.enabled = false;
@@ -62,15 +86,15 @@ public class PortalController : MonoBehaviour
         Camera mainCamera = Camera.main;
         Vector3 cameraOffset = mainCamera.transform.position - player.position;
 
-        yield return new WaitForSeconds(pauseDuration);
+        yield return new WaitForSeconds(_pauseDuration);
 
         Vector3 startPosition = player.position;
-        Vector3 targetPosition = startPosition + new Vector3(0, 0, moveDistance);
+        Vector3 targetPosition = startPosition + new Vector3(0, 0, _moveDistance);
         float elapsedTime = 0;
 
-        while (elapsedTime < moveDuration)
+        while (elapsedTime < _moveDuration)
         {
-            player.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
+            player.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / _moveDuration);
 
             mainCamera.transform.position = player.position + cameraOffset;
 
@@ -81,17 +105,17 @@ public class PortalController : MonoBehaviour
         player.position = targetPosition;
         mainCamera.transform.position = player.position + cameraOffset;
 
-        yield return new WaitForSeconds(pauseDuration);
+        yield return new WaitForSeconds(_pauseDuration);
 
         if (movement != null) movement.enabled = true;
 
-        gameManager.TriggerShowGwyn();
+        GameManager.TriggerShowGwyn();
 
-        if (physicalBlocker != null)
+        if (PhysicalBlocker != null)
         {
-            physicalBlocker.enabled = true;
+            PhysicalBlocker.enabled = true;
         }
 
-        isTeleporting = false;
+        _isTeleporting = false;
     }
 }

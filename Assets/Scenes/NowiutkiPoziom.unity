@@ -8032,12 +8032,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1934577332407039136, guid: c2919bc34080ea14297bd21fe41bc308, type: 3}
   m_PrefabInstance: {fileID: 1939945779}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1962855508}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1939945784 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7167976836438452378, guid: c2919bc34080ea14297bd21fe41bc308, type: 3}
+  m_PrefabInstance: {fileID: 1939945779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1948588758
 GameObject:
   m_ObjectHideFlags: 0
@@ -8073,6 +8078,11 @@ Transform:
   - {fileID: 743623724}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1962855508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3023628846310778163, guid: c2919bc34080ea14297bd21fe41bc308, type: 3}
+  m_PrefabInstance: {fileID: 1939945779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1997059474
 GameObject:
   m_ObjectHideFlags: 0
@@ -8830,6 +8840,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
+      propertyPath: Text1
+      value: 
+      objectReference: {fileID: 1939945781}
+    - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
+      propertyPath: Text2
+      value: 
+      objectReference: {fileID: 1939945780}
+    - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
+      propertyPath: Text3
+      value: 
+      objectReference: {fileID: 1939945783}
+    - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
       propertyPath: text1
       value: 
       objectReference: {fileID: 1939945781}
@@ -8846,9 +8868,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1939945783}
     - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
+      propertyPath: Button
+      value: 
+      objectReference: {fileID: 1939945782}
+    - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
       propertyPath: button
       value: 
       objectReference: {fileID: 1939945782}
+    - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
+      propertyPath: CollisionAudio
+      value: 
+      objectReference: {fileID: 168828096}
+    - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
+      propertyPath: CollisionImage
+      value: 
+      objectReference: {fileID: 1939945784}
     - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
       propertyPath: collisionAudio
       value: 
@@ -8857,6 +8891,10 @@ PrefabInstance:
       propertyPath: collisionImage
       value: 
       objectReference: {fileID: 1998608682}
+    - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
+      propertyPath: LevelCompleteAudio
+      value: 
+      objectReference: {fileID: 1011458311}
     - target: {fileID: 1762935735676482474, guid: 0d86f15af6d86bd478eaa0462a4b1660, type: 3}
       propertyPath: levelCompleteAudio
       value: 
@@ -8963,9 +9001,17 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 166834899}
+    - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
       propertyPath: ButtonNextLevel
       value: 
       objectReference: {fileID: 1939945782}
+    - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
+      propertyPath: buttonNextLevel
+      value: 
+      objectReference: {fileID: 1962855508}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -2,24 +2,24 @@ using UnityEngine;
 
 public class WindaControl : MonoBehaviour
 {
-    public float speed = 2.5f;
-    private float range = 6f;
-    private int direction = 1;
+    public float Speed = 2.5f;
 
-    private float startPositionY;
+    private float _range = 6f;
+    private int _direction = 1;
+    private float _startPositionY;
 
-    void Start()
+    private void Start()
     {
-        startPositionY = transform.position.y;
+        _startPositionY = transform.position.y;
     }
 
-    void Update()
+    private void Update()
     {
-        transform.position += new Vector3(0, speed * direction * Time.deltaTime, 0);
+        transform.position += new Vector3(0, Speed * _direction * Time.deltaTime, 0);
 
-        if (transform.position.y >= startPositionY + range || transform.position.y <= startPositionY - range)
+        if (transform.position.y >= _startPositionY + _range || transform.position.y <= _startPositionY - _range)
         {
-            direction *= -1;
+            _direction *= -1;
         }
     }
 }

@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class CubeController : MonoBehaviour
 {
-    Rigidbody rb;
+    private Rigidbody _rb;
 
     [SerializeField]
-    float pushForce = 2f;
+    private float pushForce = 2f;
     [SerializeField]
-    Vector3 torqueValue;
+    private Vector3 torqueValue;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = false;
+        _rb = GetComponent<Rigidbody>();
+        _rb.freezeRotation = false;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -20,8 +20,8 @@ public class CubeController : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Vector3 pushDirection = (transform.position - collision.transform.position).normalized;
-            rb.AddForce(pushDirection * pushForce, ForceMode.Impulse);
-            rb.AddTorque(torqueValue, ForceMode.Impulse);
+            _rb.AddForce(pushDirection * pushForce, ForceMode.Impulse);
+            _rb.AddTorque(torqueValue, ForceMode.Impulse);
         }
     }
 }

@@ -31,27 +31,26 @@ public class FinalBossManager : MonoBehaviour
     public Color startColor = Color.white;
     public Color chargedColor = Color.red;
     private bool isCharging = false;
-    private float chargeTime = 3f;
-    private float cooldownTime = 5f;
+    private float chargeTime = 2.5f;
+    private float cooldownTime = 3f;
     private float chargeTimer = 0f;
     private float cooldownTimer = 0f;
 
-    public RawImage healthBar; // RawImage do paska zdrowia
-    public Sprite[] healthBarSprites; // Tablica obrazków dla paska zdrowia
+    public RawImage healthBar;
+    public Sprite[] healthBarSprites;
 
-    private bool damageTaken = false; // Flaga do œledzenia otrzymanych obra¿eñ
+    private bool damageTaken = false;
 
-    public TextMeshProUGUI potionText; // Dodajemy zmienn¹ do przechowywania tekstu mikstur
-    public int potionCount = 1; // Pocz¹tkowa liczba mikstur
+    public TextMeshProUGUI potionText;
+    public int potionCount = 1;
 
-    public GameObject respawnButton; // Przycisk respawn
-    private bool isDead = false; // Flaga sprawdzaj¹ca, czy gracz jest martwy
+    public GameObject respawnButton;
+    private bool isDead = false;
 
-    private MovementController movementController; // Odwo³anie do komponentu MovementController
+    private MovementController movementController;
 
     private void Start()
     {
-        // Uzyskujemy odwo³anie do MovementController
         movementController = player.GetComponent<MovementController>();
 
         StartCoroutine(ShowRawImageWithFadeOut(kilnRawImage));
@@ -66,16 +65,15 @@ public class FinalBossManager : MonoBehaviour
 
         if (healthBar != null && healthBarSprites.Length > 0)
         {
-            healthBar.texture = healthBarSprites[0].texture; // Ustaw obrazek na pe³ne HP na pocz¹tku
+            healthBar.texture = healthBarSprites[0].texture;
         }
 
-        UpdatePotionText(); // Na pocz¹tku aktualizujemy licznik mikstur
-        respawnButton.SetActive(false); // Ukrywamy przycisk respawn na pocz¹tku
+        UpdatePotionText();
+        respawnButton.SetActive(false);
     }
 
     private void UpdatePotionText()
     {
-        // Aktualizujemy tekst wyœwietlaj¹cy tylko liczbê mikstur
         potionText.text = potionCount.ToString();
     }
 
@@ -266,10 +264,8 @@ public class FinalBossManager : MonoBehaviour
             return;
         }
 
-        // Kontrolowanie stanu ataku i cooldownu
         HandleChargingAndCooldown();
 
-        // Sprawdzamy, czy gracz nacisn¹³ "Q", aby u¿yæ mikstury
         if (Input.GetKeyDown(KeyCode.Q) && potionCount > 0 && !isDead)
         {
             UsePotion();
@@ -334,21 +330,21 @@ public class FinalBossManager : MonoBehaviour
         {
             if (!damageTaken)
             {
-                healthBar.texture = healthBarSprites[1].texture; // Po³owa HP
-                damageTaken = true; // Flaga zmieniona na true po pierwszym ataku
+                healthBar.texture = healthBarSprites[1].texture;
+                damageTaken = true;
             }
             else
             {
-                healthBar.texture = healthBarSprites[2].texture; // Brak HP
-                damageTaken = false; // Resetowanie flagi po drugim ataku
-                isDead = true;  // Gracz jest martwy
-                ShowRespawnButton();  // Pokazujemy przycisk respawn
+                healthBar.texture = healthBarSprites[2].texture;
+                damageTaken = false;
+                isDead = true;
+                ShowRespawnButton();
             }
         }
 
         isCharging = false;
         cooldownTimer = cooldownTime;
-        attackAreaMaterial.color = startColor; // Resetowanie koloru ataku
+        attackAreaMaterial.color = startColor;
     }
 
     private void UsePotion()
@@ -369,7 +365,7 @@ public class FinalBossManager : MonoBehaviour
 
     private void ShowRespawnButton()
     {
-        respawnButton.SetActive(true); // Pokazujemy przycisk respawn
+        respawnButton.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -379,10 +375,9 @@ public class FinalBossManager : MonoBehaviour
         SceneManager.LoadScene("FinalBoss", LoadSceneMode.Single);
 
         isDead = false;
-        respawnButton.SetActive(false); // Ukrywamy przycisk respawn
+        respawnButton.SetActive(false);
         currentHealthIndex = 0;
 
-        // Ponowne w³¹czenie ruchu po respawnie
         if (movementController != null)
         {
             movementController.enabled = true;
