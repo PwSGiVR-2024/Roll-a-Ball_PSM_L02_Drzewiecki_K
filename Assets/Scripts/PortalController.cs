@@ -16,6 +16,9 @@ public class PortalController : MonoBehaviour
     public FinalBossManager GameManager;
 
     public RawImage EButton;
+    public AudioSource portalAudio;
+
+    public bool isPlayerInPortal = false;
 
     private void Start()
     {
@@ -34,6 +37,8 @@ public class PortalController : MonoBehaviour
     {
         if (_isPlayerInRange && !_isTeleporting && Input.GetKeyDown(_activationKey))
         {
+            isPlayerInPortal = true;
+
             if (PhysicalBlocker != null)
             {
                 PhysicalBlocker.enabled = false;
@@ -43,6 +48,8 @@ public class PortalController : MonoBehaviour
             {
                 EButton.enabled = false;
             }
+
+            portalAudio.Play();
 
             StartCoroutine(TeleportPlayer(_player));
         }
@@ -95,9 +102,7 @@ public class PortalController : MonoBehaviour
         while (elapsedTime < _moveDuration)
         {
             player.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / _moveDuration);
-
             mainCamera.transform.position = player.position + cameraOffset;
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -107,6 +112,8 @@ public class PortalController : MonoBehaviour
 
         yield return new WaitForSeconds(_pauseDuration);
 
+        isPlayerInPortal = false;
+
         if (movement != null) movement.enabled = true;
 
         GameManager.TriggerShowGwyn();
@@ -115,6 +122,8 @@ public class PortalController : MonoBehaviour
         {
             PhysicalBlocker.enabled = true;
         }
+
+        portalAudio.Stop();
 
         _isTeleporting = false;
     }

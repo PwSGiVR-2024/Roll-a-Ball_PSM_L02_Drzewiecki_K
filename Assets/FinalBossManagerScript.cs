@@ -17,6 +17,9 @@ public class FinalBossManager : MonoBehaviour
     public Collider bossCollider;
     public int maxBossHealth = 4;
 
+    public Transform swordTransform;
+    public float swordRotationDuration = 0.5f;
+
     private int currentHealthIndex;
     private bool bossDefeated = false;
 
@@ -320,11 +323,9 @@ public class FinalBossManager : MonoBehaviour
 
     private void ExecuteAttack()
     {
-        if (bossDefeated)
-        {
-            return;
-        }
+        if (bossDefeated) return;
 
+        StartCoroutine(RotateSwordAroundBoss());
 
         if (healthBar != null && healthBarSprites.Length > 1)
         {
@@ -345,6 +346,28 @@ public class FinalBossManager : MonoBehaviour
         isCharging = false;
         cooldownTimer = cooldownTime;
         attackAreaMaterial.color = startColor;
+    }
+
+
+    private IEnumerator RotateSwordAroundBoss()
+    {
+        if (swordTransform == null || bossObject == null) yield break;
+
+        Vector3 bossCenter = bossObject.transform.position;
+        float elapsedTime = 0f;
+        float adjustedDuration = swordRotationDuration / 2f;
+
+        while (elapsedTime < adjustedDuration)
+        {
+            float angle = (-360f / adjustedDuration) * Time.deltaTime;
+
+            swordTransform.RotateAround(bossCenter, Vector3.up, angle);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        swordTransform.RotateAround(bossCenter, Vector3.up, -360f - (-360f * (elapsedTime / adjustedDuration)));
     }
 
     private void UsePotion()

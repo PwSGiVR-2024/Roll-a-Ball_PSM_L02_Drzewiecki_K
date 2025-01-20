@@ -1,47 +1,86 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class LightIntensityController : MonoBehaviour
 {
-    private Light directionalLight;
+    private Light _directionalLight;
+    public AudioClip thunderClip;
+    public AudioSource audioSource;
+
+    public AudioClip windSound;
+    public AudioSource windAudioSource;
+
+    private PortalController portalController;
+    private Coroutine lightCycleCoroutine;
+    private bool isCyclePaused = false;
 
     void Start()
     {
-        directionalLight = GetComponent<Light>();
-        StartCoroutine(LightCycle());
+        _directionalLight = GetComponent<Light>();
+
+        portalController = FindFirstObjectByType<PortalController>();
+
+
+        lightCycleCoroutine = StartCoroutine(LightCycle());
+
+        if (windAudioSource != null && !windAudioSource.isPlaying)
+        {
+            windAudioSource.loop = true;
+            windAudioSource.PlayOneShot(windSound);
+        }
+    }
+
+    void Update()
+    {
+        if (portalController != null && portalController.isPlayerInPortal)
+        {
+            if (!isCyclePaused)
+            {
+                StopCoroutine(lightCycleCoroutine);
+                lightCycleCoroutine = null;
+                audioSource.Stop();
+                isCyclePaused = true;
+                _directionalLight.intensity = 1f;
+            }
+        }
     }
 
     IEnumerator LightCycle()
     {
-        while (true)
+        while (!isCyclePaused)
         {
-            yield return StartCoroutine(ChangeIntensity(1f, 2f, 0.5f));
-            yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(ChangeIntensity(1f, 2.5f, 0.5f));
+            yield return StartCoroutine(FlashLight(2.5f, 0.5f));
+            yield return new WaitForSeconds(3f);
+            yield return StartCoroutine(FlashLight(2.5f, 0.5f));
             yield return new WaitForSeconds(1f);
-            yield return StartCoroutine(ChangeIntensity(1f, 2f, 0.5f));
-            yield return new WaitForSeconds(8f);
+            yield return StartCoroutine(FlashLight(2.5f, 0.5f));
+            yield return new WaitForSeconds(4f);
         }
     }
 
-    IEnumerator ChangeIntensity(float startIntensity, float endIntensity, float duration)
+    IEnumerator FlashLight(float peakIntensity, float fadeDuration)
     {
+        if (thunderClip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(thunderClip);
+        }
+
+        _directionalLight.intensity = peakIntensity;
         float elapsed = 0f;
 
-        while (elapsed < duration / 2f)
+        while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
-            directionalLight.intensity = Mathf.Lerp(startIntensity, endIntensity, elapsed / (duration / 2f));
+            _directionalLight.intensity = Mathf.Lerp(peakIntensity, 1f, elapsed / fadeDuration);
             yield return null;
         }
 
-        elapsed = 0f;
+        _directionalLight.intensity = 1f;
+    }
 
-        while (elapsed < duration / 2f)
-        {
-            elapsed += Time.deltaTime;
-            directionalLight.intensity = Mathf.Lerp(endIntensity, startIntensity, elapsed / (duration / 2f));
-            yield return null;
-        }
+    public void ResetLightCycle()
+    {
+        isCyclePaused = false;
+        lightCycleCoroutine = StartCoroutine(LightCycle());
     }
 }
