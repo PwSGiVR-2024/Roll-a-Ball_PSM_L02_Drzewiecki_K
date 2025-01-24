@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform player;
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 75f;
     public float distanceFromPlayer = 5f;
     public Vector2 pitchLimits = new Vector2(-30f, 60f);
 
@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     private float _yaw = 0f;
     private float _pitch = 0f;
 
-    private bool isFinalLevel => MovementController.lv == 2;
+    private bool _isFinalLevel => ManagerScript.lv == 2;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
-        if (isFinalLevel)
+        if (_isFinalLevel)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -33,7 +33,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (isFinalLevel)
+        if (_isFinalLevel)
         {
             FinalLevelCameraControl();
         }

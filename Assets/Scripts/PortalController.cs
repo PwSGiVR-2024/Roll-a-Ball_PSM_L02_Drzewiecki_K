@@ -87,7 +87,7 @@ public class PortalController : MonoBehaviour
     {
         _isTeleporting = true;
 
-        MovementController2 movement = player.GetComponent<MovementController2>();
+        MovementController movement = player.GetComponent<MovementController>();
         if (movement != null) movement.enabled = false;
 
         Camera mainCamera = Camera.main;

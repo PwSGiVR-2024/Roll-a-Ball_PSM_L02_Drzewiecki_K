@@ -7,7 +7,7 @@ public class CubeController : MonoBehaviour
     [SerializeField]
     private float pushForce = 2f;
     [SerializeField]
-    private Vector3 torqueValue;
+    private Vector3 _torqueValue;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class CubeController : MonoBehaviour
         {
             Vector3 pushDirection = (transform.position - collision.transform.position).normalized;
             _rb.AddForce(pushDirection * pushForce, ForceMode.Impulse);
-            _rb.AddTorque(torqueValue, ForceMode.Impulse);
+            _rb.AddTorque(_torqueValue, ForceMode.Impulse);
         }
     }
 }

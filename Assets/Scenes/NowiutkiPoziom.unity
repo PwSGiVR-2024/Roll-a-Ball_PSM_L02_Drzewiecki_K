@@ -9159,9 +9159,33 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
+      propertyPath: Text1
+      value: 
+      objectReference: {fileID: 1939945781}
+    - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
+      propertyPath: Text2
+      value: 
+      objectReference: {fileID: 1939945780}
+    - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
+      propertyPath: Text3
+      value: 
+      objectReference: {fileID: 1939945783}
+    - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
+      propertyPath: Button
+      value: 
+      objectReference: {fileID: 1939945782}
+    - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 166834899}
+    - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
+      propertyPath: CollisionAudio
+      value: 
+      objectReference: {fileID: 168828096}
+    - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
+      propertyPath: CollisionImage
+      value: 
+      objectReference: {fileID: 1998608682}
     - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
       propertyPath: ButtonNextLevel
       value: 
@@ -9170,6 +9194,10 @@ PrefabInstance:
       propertyPath: buttonNextLevel
       value: 
       objectReference: {fileID: 1962855508}
+    - target: {fileID: 7881688329564976440, guid: e62f53f3cce4bac47a58c9421686f5be, type: 3}
+      propertyPath: LevelCompleteAudio
+      value: 
+      objectReference: {fileID: 1011458311}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
